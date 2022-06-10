@@ -1,0 +1,87 @@
+html {
+   box-sizing: border-box;
+   font-size: 100%;
+}
+
+*,
+*::after,
+*::before {
+   box-sizing: inherit;
+}
+
+body {
+   font-size: 32px;
+   font-weight: 600;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   color: white;
+}
+
+// the app design
+.App {
+   width: 240px;
+   height: 240px;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   grid-template-rows: 1fr 1fr 1fr;
+   box-shadow: 1px 1px 42px #000;
+}
+
+// the card design
+.card {
+   border: 0.01px solid black;
+   background-color: #374151;
+   display: grid;
+   place-items: center;
+   cursor: pointer;
+
+   &-design {
+      width: 36px;
+      height: 36px;
+
+      .outer-circle {
+         width: 100%;
+         height: 100%;
+         border-radius: 50%;
+         background-color: white;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         display: none;
+      }
+
+      .inner-circle {
+         width: 56%;
+         height: 56%;
+         border-radius: 50%;
+         background-color: #374151;
+      }
+
+      .cross {
+         width: 100%;
+         height: 100%;
+         display: none;
+
+         &.show-cross {
+            display: block;
+         }
+
+         span {
+            width: 46px;
+            height: 8px;
+            background-color: #fff;
+            display: block;
+            border-radius: 20px;
+         }
+
+         .to-left {
+            transform: rotate(-45deg) translate(-13.5px, 5px);
+         }
+         .to-right {
+            transform: rotate(45deg) translate(-1px, 7px);
+         }
+      }
+   }
+}
