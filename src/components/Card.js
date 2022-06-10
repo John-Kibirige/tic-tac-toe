@@ -1,20 +1,13 @@
 import React from "react";
 
-const Card = ({ cardNumber }) => {
-   const [state, setState] = React.useState(false);
-   let showCross = "";
-   function handleClick() {
-      showCross = "show-cross"; 
-      setState((prevState) => !prevState);
-      
-   }
+const Card = ({ cardNumber, clickCard }) => {
    return (
-      <div className="card" onClick={handleClick}>
+      <div className="card" onClick={clickCard}>
          <div className="card-design">
-            <div className="outer-circle">
+            <div className={false && "outer-circle"}>
                <div className="inner-circle"></div>
             </div>
-            <div className={`cross ${showCross}`}>
+            <div className={false && "cross"}>
                <span className="to-left"></span>
                <span className="to-right"></span>
             </div>
