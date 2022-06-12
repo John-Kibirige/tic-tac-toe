@@ -1,16 +1,13 @@
 import React from "react";
+import Cross from "./Cross";
+import Circle from "./Circle";
 
-const Card = ({ cardNumber, clickCard }) => {
+const Card = ({ display, handleCardClicked }) => {
    return (
-      <div className="card" onClick={clickCard}>
+      <div className="card" onClick={handleCardClicked}>
          <div className="card-design">
-            <div className={false && "outer-circle"}>
-               <div className="inner-circle"></div>
-            </div>
-            <div className={false && "cross"}>
-               <span className="to-left"></span>
-               <span className="to-right"></span>
-            </div>
+            {display === "circle" && <Circle />}
+            {display === "cross" && <Cross />}
          </div>
       </div>
    );

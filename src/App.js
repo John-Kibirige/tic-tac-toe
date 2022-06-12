@@ -18,30 +18,51 @@ function App() {
 
    // handle card components
    const cardNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+   let displayedObj = cardNumbers.reduce((acc, curr) => {
+      acc.push({ number: curr, display: "" });
+      return acc;
+   }, []);
+
    const [clickedCards, setClickedCards] = React.useState([]);
+   const [displayed, setDisplayed] = React.useState(displayedObj);
 
-   // for handling the click event
-   function handleClick(num) {
-      setClickedCards((prevArr) => {
-         if (!prevArr.includes(num)) {
-            return [...prevArr, num];
-         } else {
-            return prevArr;
-         }
+   const handleCardClicked = (number) => {
+      //   state of clicked cards
+      setClickedCards((prevClickedCards) => {
+         if (!prevClickedCards.includes(number))
+            return [...prevClickedCards, number];
+         else return prevClickedCards;
       });
-   }
-
-   console.log(clickedCards);
+      // the state of clicked values
+      if (!clickedCards.includes(number)) {
+         const odd = (clickedCards.length + 1) % 2 === 1;
+         setDisplayed((prevDisplayed) => {
+            return prevDisplayed.map((object) => {
+               return object.number === number
+                  ? {
+                       ...object,
+                       display: odd
+                          ? option
+                          : option === "circle"
+                          ? "cross"
+                          : "circle",
+                    }
+                  : object;
+            });
+         });
+      }
+   };
 
    // we need to display all the cards in odd positions with option and all those in even position with
 
-   const allCards = cardNumbers.map((Number) => {
+   const allCards = displayed.map((obj) => {
       return (
          <Card
-            key={Number}
-            cardNumber={Number}
-            clickCard={() => {
-               handleClick(Number);
+            key={obj.number}
+            display={obj.display}
+            handleCardClicked={() => {
+               handleCardClicked(obj.number);
+               // the cards at this point exclude the current
             }}
          />
       );
