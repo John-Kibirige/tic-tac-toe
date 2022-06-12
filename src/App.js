@@ -26,6 +26,10 @@ function App() {
    const [clickedCards, setClickedCards] = React.useState([]);
    const [displayed, setDisplayed] = React.useState(displayedObj);
 
+   // state for monitoring the odd and even values
+   const [oddValues, setOddValues] = React.useState([]);
+   const [evenValues, setEvenValues] = React.useState([]);
+
    const handleCardClicked = (number) => {
       //   state of clicked cards
       setClickedCards((prevClickedCards) => {
@@ -36,6 +40,16 @@ function App() {
       // the state of clicked values
       if (!clickedCards.includes(number)) {
          const odd = (clickedCards.length + 1) % 2 === 1;
+         if (odd) {
+            setOddValues((prevOddValues) => {
+               return [...prevOddValues, number];
+            });
+         } else {
+            setEvenValues((prevEvenValues) => {
+               return [...prevEvenValues, number];
+            });
+         }
+
          setDisplayed((prevDisplayed) => {
             return prevDisplayed.map((object) => {
                return object.number === number
@@ -52,6 +66,30 @@ function App() {
          });
       }
    };
+
+   // we want to loop through all indices and grab an index array whose values are present in the odd values
+   React.useEffect(() => {
+      const indices = [
+         [0, 1, 2],
+         [3, 4, 5],
+         [6, 7, 8],
+         [1, 4, 7],
+         [2, 5, 8],
+         [3, 6, 9],
+         [1, 5, 9],
+         [7, 5, 3],
+      ];
+
+      let results = indices.reduce((acc, curr) => {
+         if (curr.every((e) => oddValues.includes(e))) {
+            acc["odd"] = curr;
+         }
+         if (curr.every((e) => evenValues.includes(e))) {
+            acc["even"] = curr;
+         }
+         return acc;
+      }, {});
+   }, [clickedCards.length]);
 
    // we need to display all the cards in odd positions with option and all those in even position with
 
