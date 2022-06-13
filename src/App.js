@@ -7,6 +7,7 @@ import Winner from "./components/Winner";
 function App() {
    // handle the pre-card container
    // what we can do is to use the use state hook;
+   let message;
    const [option, setOption] = React.useState("");
 
    function clickedCross() {
@@ -31,6 +32,9 @@ function App() {
    const [oddValues, setOddValues] = React.useState([]);
    const [evenValues, setEvenValues] = React.useState([]);
 
+   // monitor the results
+   const [result, setResults] = React.useState([]);
+
    const handleCardClicked = (number) => {
       //   state of clicked cards
       setClickedCards((prevClickedCards) => {
@@ -51,6 +55,7 @@ function App() {
             });
          }
 
+         // for displayed
          setDisplayed((prevDisplayed) => {
             return prevDisplayed.map((object) => {
                return object.number === number
@@ -68,14 +73,12 @@ function App() {
       }
    };
 
-   // monitor the results
-   const [result, setResults] = React.useState([]);
    // we want to loop through all indices and grab an index array whose values are present in the odd values
    React.useEffect(() => {
       const indices = [
-         [0, 1, 2],
-         [3, 4, 5],
-         [6, 7, 8],
+         [1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9],
          [1, 4, 7],
          [2, 5, 8],
          [3, 6, 9],
@@ -93,7 +96,17 @@ function App() {
       }, []);
 
       setResults([...results]);
-   }, [clickedCards.length]);
+   }, [clickedCards]);
+
+   // handle restart button
+   function handleRestart() {
+      setClickedCards([]);
+      setDisplayed(displayedObj);
+      setOddValues([]);
+      setEvenValues([]);
+      setResults([]);
+      setOption("");
+   }
 
    // we need to display all the cards in odd positions with option and all those in even position with
 
@@ -106,9 +119,31 @@ function App() {
                handleCardClicked(obj.number);
                // the cards at this point exclude the current
             }}
+            winnerColor={
+               result.length > 0
+                  ? result[0].some((e) => e === obj.number)
+                  : false
+            }
+            noWinner={
+               result.length > 0
+                  ? result[0].some((e) => e !== obj.number)
+                  : false
+            }
          />
       );
    });
+
+   // working on the message
+   if (result[0] && clickedCards.length >= 5) {
+      let res = result[0];
+      displayed.forEach((obj) => {
+         if (res.includes(obj.number)) {
+            message = obj.display;
+         }
+      });
+   }
+
+   // add styles to my App
 
    return (
       <div className="App">
@@ -119,7 +154,15 @@ function App() {
          {option !== "" && (
             <>
                <div className="all-cards-container">{allCards}</div>
-               <Winner />
+               {(result.length > 0 || clickedCards.length === 9) && (
+                  <div className="overlay"></div>
+               )}
+               {
+                  <Winner
+                     winner={message || (clickedCards.length === 9 && "draw")}
+                     handleClick={handleRestart}
+                  />
+               }
             </>
          )}
       </div>
