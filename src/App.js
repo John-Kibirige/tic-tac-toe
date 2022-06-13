@@ -2,6 +2,7 @@ import "./App.css";
 import Card from "./components/Card";
 import PreCard from "./components/PreCard";
 import React from "react";
+import Winner from "./components/Winner";
 
 function App() {
    // handle the pre-card container
@@ -67,6 +68,8 @@ function App() {
       }
    };
 
+   // monitor the results
+   const [result, setResults] = React.useState([]);
    // we want to loop through all indices and grab an index array whose values are present in the odd values
    React.useEffect(() => {
       const indices = [
@@ -79,16 +82,17 @@ function App() {
          [1, 5, 9],
          [7, 5, 3],
       ];
-
       let results = indices.reduce((acc, curr) => {
          if (curr.every((e) => oddValues.includes(e))) {
-            acc["odd"] = curr;
+            acc.push(curr);
          }
          if (curr.every((e) => evenValues.includes(e))) {
-            acc["even"] = curr;
+            acc.push(curr);
          }
          return acc;
-      }, {});
+      }, []);
+
+      setResults([...results]);
    }, [clickedCards.length]);
 
    // we need to display all the cards in odd positions with option and all those in even position with
@@ -111,8 +115,12 @@ function App() {
          {option === "" && (
             <PreCard cross={clickedCross} circle={clickedCircle} />
          )}
+
          {option !== "" && (
-            <div className="all-cards-container">{allCards}</div>
+            <>
+               <div className="all-cards-container">{allCards}</div>
+               <Winner />
+            </>
          )}
       </div>
    );

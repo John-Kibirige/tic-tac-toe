@@ -1,10 +1,10 @@
 import React from "react";
 
-function Cross() {
+function Cross({ color }) {
    return (
       <div className="cross">
-         <span className="to-left"></span>
-         <span className="to-right"></span>
+         <span className={`to-left ${color}`}></span>
+         <span className={`to-right ${color}`}></span>
       </div>
    );
 }

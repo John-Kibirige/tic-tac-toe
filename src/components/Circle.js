@@ -1,9 +1,9 @@
 import React from "react";
 
-function Circle() {
+function Circle({ outerColor, innerColor }) {
    return (
-      <div className="outer-circle">
-         <div className="inner-circle"></div>
+      <div className={`outer-circle ${outerColor}`}>
+         <div className={`inner-circle ${innerColor}`}></div>
       </div>
    );
 }

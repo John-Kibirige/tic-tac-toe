@@ -32,9 +32,9 @@ body {
    box-shadow: 1px 1px 42px #000;
 }
 
-// the card components
+// the card comp
 .card {
-   border: 0.01px solid black;
+   margin: 0.5px;
    background-color: #374151;
    display: grid;
    place-items: center;
@@ -48,8 +48,8 @@ body {
 
 // circle component
 .outer-circle {
-   width: 100%;
-   height: 100%;
+   width: 36px;
+   height: 36px;
    border-radius: 50%;
    background-color: rgb(31, 139, 172);
    display: flex;
@@ -66,8 +66,8 @@ body {
 
 // cross component
 .cross {
-   width: 100%;
-   height: 100%;
+   width: 36px;
+   height: 36px;
 
    span {
       width: 46px;
@@ -157,5 +157,64 @@ body {
          border: thin solid white;
          transform: scale(1.02, 1.05);
       }
+   }
+}
+
+.winner {
+   margin-top: 30px;
+   box-shadow: -3px 3px 16px black;
+   padding-block: 3px;
+   border-radius: 9px;
+
+   &-symbol {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 84%;
+      margin-inline: auto;
+      margin-top: 12px;
+
+      h2 {
+         font-size: 34px;
+         color: darkslateblue;
+      }
+   }
+
+   .r-btn {
+      width: 57%;
+      font-size: 22px;
+      margin-inline: auto;
+      display: block;
+      margin-top: 20px;
+      text-transform: uppercase;
+      padding: 6px;
+      font-weight: 700;
+      color: white;
+      background-color: #366652;
+      border: none;
+      letter-spacing: 1.3px;
+      border-radius: 10px;
+      padding-inline: 14px;
+      cursor: pointer;
+      box-shadow: 1px 1px 2px black;
+      margin-bottom: 12px;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+         opacity: 0.5;
+      }
+   }
+
+   // set the background-color to white
+   .bg-color {
+      background-color: white;
+   }
+   .bg-inner {
+      background-color: rgb(34 197 94);
+   }
+
+   .draw-header {
+      font-size: 46px;
+      text-align: center;
    }
 }
